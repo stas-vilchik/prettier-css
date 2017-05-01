@@ -1,5 +1,8 @@
 # prettier-css
 
+[![Build Status](https://travis-ci.org/stas-vilchik/prettier-css.svg?branch=master)](https://travis-ci.org/stas-vilchik/prettier-css)
+[![NPM version](https://img.shields.io/npm/v/prettier-css.svg)](https://www.npmjs.com/package/prettier-css)
+
 The project is highly inspired by [`prettier`](https://github.com/prettier/prettier).
 
 ## Usage
