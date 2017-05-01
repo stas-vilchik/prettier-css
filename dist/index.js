@@ -7,4 +7,3 @@ function format(text) {
     return printer_1.print(tree);
 }
 exports.format = format;
-//# sourceMappingURL=index.js.map

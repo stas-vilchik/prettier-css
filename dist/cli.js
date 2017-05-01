@@ -22,4 +22,3 @@ glob_1.sync(filePatterns).forEach((filename) => {
         process.exitCode = 2;
     }
 });
-//# sourceMappingURL=cli.js.map
