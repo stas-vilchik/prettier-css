@@ -5,7 +5,7 @@
   "author": "Stas Vilchik",
   "license": "MIT",
   "bin": {
-    "prettier-css": "./bin/prettier-css"
+    "prettier-css": "./bin/prettier-css.js"
   },
   "bugs": {
     "url": "https://github.com/stas-vilchik/prettier-css/issues"
