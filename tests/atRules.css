@@ -1,0 +1,5 @@
+@foo a { color: red; }
+
+@foo b { color: red; text-align: center; }
+
+@foo c { .bar, .baz { color: red; } }

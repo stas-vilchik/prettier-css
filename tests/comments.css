@@ -1,0 +1,54 @@
+.foo {
+  /* the color is red */
+  color: red;
+}
+
+.foo {
+  /* the color is red */
+  
+  color: red;
+}
+
+.foo {
+  color: red;
+  /* the color is red */
+}
+
+.foo {
+  color: red;
+  /* the color is red */
+
+}
+
+.foo {
+  color: red;
+
+  /* the color is red */
+}
+
+.foo {
+  color: red;
+
+  /* the color is red */
+
+}
+
+.foo {
+  color: red;
+  /* text to the right */
+  text-align: right;
+}
+
+.foo {
+  color: red;
+  /* text to the right */
+
+  text-align: right;
+}
+
+.foo {
+  color: red;
+
+  /* text to the right */
+  text-align: right;
+}
