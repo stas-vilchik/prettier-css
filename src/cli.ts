@@ -12,9 +12,17 @@ sync(filePatterns).forEach((filename: string) => {
   } catch (error) {
     console.error(`Unable to read file: "${filename}":\n${error}`);
     process.exitCode = 2;
+    return;
   }
 
-  const formatted = format(text);
+  let formatted: string;
+  try {
+    formatted = format(text);
+  } catch (error) {
+    console.error(`Unable to format file: "${filename}":\n${error}`);
+    process.exitCode = 2;
+    return;
+  }
 
   try {
     writeFileSync(filename, formatted, 'utf-8');

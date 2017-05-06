@@ -60,7 +60,7 @@ function printRule(rule: Rule, indentLevel: number) {
         output += printComment(node as Comment, indentLevel + 1);
         break;
       default:
-        console.log(node.type, node);
+      // console.log(node.type, node);
     }
     output += '\n';
   });
@@ -98,7 +98,7 @@ function printAtRule(atRule: AtRule, indentLevel: number) {
           }
           break;
         default:
-          console.log(node.type, node);
+        // console.log(node.type, node);
       }
       if (index < nodes.length - 1) {
         output += `\n`;
@@ -132,7 +132,7 @@ export function print(tree: Root) {
           output += printBlockComment(node as Comment, 0);
           break;
         default:
-          console.log(node.type, node);
+        // console.log(node.type, node);
       }
 
       if (nodeIndex < nodes.length - 1) {
