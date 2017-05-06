@@ -12,7 +12,7 @@ function lineBreaks(str: string = '', initial: number = 0) {
 }
 
 function printDeclaration(decl: Declaration, indentLevel: number) {
-  let output = `${decl.prop}: ${decl.value}`;
+  let output = `${decl.prop.toLowerCase()}: ${decl.value}`;
 
   if (decl.important) {
     output += ' !important';

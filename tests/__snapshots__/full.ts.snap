@@ -77,6 +77,10 @@ exports[`comments 1`] = `
 
 exports[`rules 1`] = `
 ".a {}
+
+.b {
+  color: red;
+}
 "
 `;
 
