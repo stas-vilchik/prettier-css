@@ -46,12 +46,12 @@ function printBlockComment(comment: Comment, indentLevel: number) {
 function printRule(rule: Rule, indentLevel: number) {
   let output = '';
 
-  const emptyRule = rule.nodes.length === 0;
+  const emptyRule = rule.nodes == null || rule.nodes.length === 0;
   const selectors = rule.selector.split(',').map(s => indent(s.trim(), indentLevel)).join(',\n');
 
   output += `${selectors} ${emptyRule ? "{}" : "{"}\n`;
 
-  rule.nodes.forEach(node => {
+  (rule.nodes || []).forEach(node => {
     switch (node.type) {
       case 'decl':
         output += printDeclaration(node as Declaration, indentLevel + 1);
@@ -73,28 +73,44 @@ function printRule(rule: Rule, indentLevel: number) {
 }
 
 function printAtRule(atRule: AtRule, indentLevel: number) {
-  let output = indent(`@${atRule.name} ${atRule.params ? atRule.params + ' ' : ''}{\n`, indentLevel);
+  let output = indent(`@${atRule.name}`, indentLevel);
+  if (atRule.params) {
+    output += ' ' + atRule.params;
+  }
 
-  atRule.nodes.forEach((node, index) => {
-    switch (node.type) {
-      case 'rule':
-        output += printRule(node as Rule, indentLevel + 1);
-        break;
-      case 'decl':
-        output += printDeclaration(node as Declaration, indentLevel + 1);
-        if (index === atRule.nodes.length - 1) {
-          output += `\n`;
-        }
-        break;
-      default:
-        console.log(node.type, node);
-    }
-    if (index < atRule.nodes.length - 1) {
-      output += `\n`;
-    }
-  });
+  const { nodes } = atRule;
+  if (nodes) {
+    output += ' {\n';
+  } else {
+    output += ';';
+  }
 
-  output += indent(`}\n`, indentLevel);
+  if (nodes) {
+    nodes.forEach((node, index) => {
+      switch (node.type) {
+        case 'rule':
+          output += printRule(node as Rule, indentLevel + 1);
+          break;
+        case 'decl':
+          output += printDeclaration(node as Declaration, indentLevel + 1);
+          if (index === nodes.length - 1) {
+            output += `\n`;
+          }
+          break;
+        default:
+          console.log(node.type, node);
+      }
+      if (index < nodes.length - 1) {
+        output += `\n`;
+      }
+    });
+  }
+
+  if (atRule.nodes) {
+    output += indent(`}\n`, indentLevel);
+  } else {
+    output += '\n';
+  }
 
   return output;
 }
@@ -102,25 +118,28 @@ function printAtRule(atRule: AtRule, indentLevel: number) {
 export function print(tree: Root) {
   let output = '';
 
-  tree.nodes.forEach((node, nodeIndex) => {
-    switch (node.type) {
-      case 'rule':
-        output += printRule(node as Rule, 0);
-        break;
-      case 'atrule':
-        output += printAtRule(node as AtRule, 0);
-        break;
-      case 'comment':
-        output += printBlockComment(node as Comment, 0);
-        break;
-      default:
-        console.log(node.type, node);
-    }
+  const { nodes } = tree;
+  if (nodes) {
+    nodes.forEach((node, nodeIndex) => {
+      switch (node.type) {
+        case 'rule':
+          output += printRule(node as Rule, 0);
+          break;
+        case 'atrule':
+          output += printAtRule(node as AtRule, 0);
+          break;
+        case 'comment':
+          output += printBlockComment(node as Comment, 0);
+          break;
+        default:
+          console.log(node.type, node);
+      }
 
-    if (nodeIndex < tree.nodes.length - 1) {
-      output += `\n`;
-    }
-  });
+      if (nodeIndex < nodes.length - 1) {
+        output += `\n`;
+      }
+    });
+  }
 
   return output;
 }

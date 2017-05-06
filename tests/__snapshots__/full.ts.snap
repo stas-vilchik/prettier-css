@@ -10,6 +10,8 @@ exports[`atRules 1`] = `
   text-align: center;
 }
 
+@import url('https://example.com/foo');
+
 @foo c {
   .bar,
   .baz {

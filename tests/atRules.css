@@ -2,4 +2,6 @@
 
 @foo b { color: red; text-align: center; }
 
+@import url('https://example.com/foo');
+
 @foo c { .bar, .baz { color: red; } }
