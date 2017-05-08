@@ -1,84 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`atRules 1`] = `
-"@foo a {
-  color: red;
-}
-
-@foo b {
-  color: red;
-  text-align: center;
-}
-
-@import url('https://example.com/foo');
-
-@foo c {
-  .bar,
-  .baz {
-    color: red;
-  }
-}
-"
-`;
-
-exports[`comments 1`] = `
-".foo {
-  /* the color is red */
-  color: red;
-}
-
-.foo {
-  /* the color is red */
-
-  color: red;
-}
-
-.foo {
-  color: red;
-  /* the color is red */
-}
-
-.foo {
-  color: red;
-  /* the color is red */
-}
-
-.foo {
-  color: red;
-
-  /* the color is red */
-}
-
-.foo {
-  color: red;
-
-  /* the color is red */
-}
-
-.foo {
-  color: red;
-  /* text to the right */
-  text-align: right;
-}
-
-.foo {
-  color: red;
-  /* text to the right */
-
-  text-align: right;
-}
-
-.foo {
-  color: red;
-
-  /* text to the right */
-  text-align: right;
-}
-"
-`;
-
-exports[`less 1`] = `
-"/*
+/*
  * SonarQube
  * Copyright (C) 2009-2017 SonarSource SA
  * mailto:info AT sonarsource DOT com
@@ -107,6 +27,7 @@ exports[`less 1`] = `
 @qualityGateSidebarWidth: 230px;
 
 .quality-gates-navigator {
+
   .navigator-side {
     display: table-cell;
     vertical-align: top;
@@ -116,10 +37,7 @@ exports[`less 1`] = `
 
   .navigator-header {
     margin-left: 0;
-
-    .spinner {
-      margin-top: 9px;
-    }
+    .spinner { margin-top: 9px; }
   }
 
   .navigator-actions {
@@ -141,13 +59,15 @@ exports[`less 1`] = `
     min-width: 0;
   }
 
-  .navigator-details {
-    margin-left: 0;
-  }
+  .navigator-details { margin-left: 0; }
+
 }
 
+
 .quality-gates-nav {
+
   .navigator-results-list {
+
     & > li {
       border-color: transparent;
 
@@ -168,7 +88,7 @@ exports[`less 1`] = `
         padding-bottom: 2px;
       }
     }
-  }
+  } 
 }
 
 .quality-gate-section {
@@ -190,9 +110,11 @@ exports[`less 1`] = `
   text-transform: uppercase;
 }
 
+
 .quality-gate-introduction {
   margin-bottom: 2 * @navigatorPadding;
 }
+
 
 .quality-gate-new-condition {
   margin-bottom: @navigatorPadding;
@@ -225,25 +147,3 @@ exports[`less 1`] = `
     border-right: none !important;
   }
 }
-"`;
-
-exports[`rules 1`] = `
-".a {}
-
-.b {
-  color: red;
-}
-"
-`;
-
-exports[`selectors 1`] = `
-".a,
-.b {
-  color: red;
-}
-
-.a > .b {
-  color: red;
-}
-"
-`;

@@ -12,7 +12,8 @@ function lineBreaks(str: string = '', initial: number = 0) {
 }
 
 function printDeclaration(decl: Declaration, indentLevel: number) {
-  let output = `${decl.prop.toLowerCase()}: ${decl.value}`;
+  const property = decl.prop.startsWith('@') ? decl.prop : decl.prop.toLocaleLowerCase();
+  let output = `${property}: ${decl.value}`;
 
   if (decl.important) {
     output += ' !important';
@@ -31,18 +32,6 @@ function printComment(comment: Comment, indentLevel: number) {
   );
 }
 
-function printBlockComment(comment: Comment, indentLevel: number) {
-  const lines = [
-    '/*',
-    ' ' + comment.text,
-    ' */',
-    ''
-  ]
-    .map(line => indent(line, indentLevel))
-    .join('\n');
-  return lineBreaks(comment.raws.before, -1) + lines + lineBreaks(comment.raws.after);
-}
-
 function printRule(rule: Rule, indentLevel: number) {
   let output = '';
 
@@ -52,16 +41,7 @@ function printRule(rule: Rule, indentLevel: number) {
   output += `${selectors} ${emptyRule ? "{}" : "{"}\n`;
 
   (rule.nodes || []).forEach(node => {
-    switch (node.type) {
-      case 'decl':
-        output += printDeclaration(node as Declaration, indentLevel + 1);
-        break;
-      case 'comment':
-        output += printComment(node as Comment, indentLevel + 1);
-        break;
-      default:
-      // console.log(node.type, node);
-    }
+    output += printNode(node, indentLevel + 1);
     output += '\n';
   });
 
@@ -81,38 +61,34 @@ function printAtRule(atRule: AtRule, indentLevel: number) {
   const { nodes } = atRule;
   if (nodes) {
     output += ' {\n';
-  } else {
-    output += ';';
-  }
-
-  if (nodes) {
     nodes.forEach((node, index) => {
-      switch (node.type) {
-        case 'rule':
-          output += printRule(node as Rule, indentLevel + 1);
-          break;
-        case 'decl':
-          output += printDeclaration(node as Declaration, indentLevel + 1);
-          if (index === nodes.length - 1) {
-            output += `\n`;
-          }
-          break;
-        default:
-        // console.log(node.type, node);
-      }
-      if (index < nodes.length - 1) {
+      output += printNode(node, indentLevel + 1);
+      if (node.type !== 'rule') {
         output += `\n`;
       }
     });
-  }
-
-  if (atRule.nodes) {
     output += indent(`}\n`, indentLevel);
   } else {
+    output += ';';
     output += '\n';
   }
 
   return output;
+}
+
+function printNode(node: Node, indentLevel: number) {
+  switch (node.type) {
+    case 'rule':
+      return printRule(node as Rule, indentLevel);
+    case 'atrule':
+      return printAtRule(node as AtRule, indentLevel);
+    case 'comment':
+      return printComment(node as Comment, indentLevel);
+    case 'decl':
+      return printDeclaration(node as Declaration, indentLevel);
+    default:
+      console.error(`Unknown node type: "${node.type}"`);
+  }
 }
 
 export function print(tree: Root) {
@@ -121,20 +97,7 @@ export function print(tree: Root) {
   const { nodes } = tree;
   if (nodes) {
     nodes.forEach((node, nodeIndex) => {
-      switch (node.type) {
-        case 'rule':
-          output += printRule(node as Rule, 0);
-          break;
-        case 'atrule':
-          output += printAtRule(node as AtRule, 0);
-          break;
-        case 'comment':
-          output += printBlockComment(node as Comment, 0);
-          break;
-        default:
-        // console.log(node.type, node);
-      }
-
+      output += printNode(node, 0);
       if (nodeIndex < nodes.length - 1) {
         output += `\n`;
       }

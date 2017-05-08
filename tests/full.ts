@@ -21,3 +21,8 @@ it('comments', () => {
   const text = readFileSync(join(__dirname, 'comments.css'), 'utf-8');
   expect(format(text)).toMatchSnapshot();
 });
+
+it('less', () => {
+  const text = readFileSync(join(__dirname, 'variables.less'), 'utf-8');
+  expect(format(text, 'less')).toMatchSnapshot();
+})

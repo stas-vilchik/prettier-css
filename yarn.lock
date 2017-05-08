@@ -1834,7 +1834,13 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-postcss@^5.2.17:
+postcss-less@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-0.16.1.tgz#df179ed24365a60f6658e139816dbac78aee5043"
+  dependencies:
+    postcss "^5.2.16"
+
+postcss@^5.2.16, postcss@^5.2.17:
   version "5.2.17"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.17.tgz#cf4f597b864d65c8a492b2eabe9d706c879c388b"
   dependencies:
